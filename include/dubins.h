@@ -22,6 +22,10 @@
 #ifndef DUBINS_H
 #define DUBINS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum 
 {
     LSL = 0,
@@ -165,6 +169,9 @@ int dubins_path_endpoint(DubinsPath* path, double q[3]);
  */
 int dubins_extract_subpath(DubinsPath* path, double t, DubinsPath* newpath);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DUBINS_H */
 

@@ -205,8 +205,18 @@ int dubins_path_sample( DubinsPath* path, double t, double q[3] )
     const SegmentType* types = DIRDATA[path->type];
     double p1, p2;
 
-    if( t < 0 || t > dubins_path_length(path) ) {
-        return EDUBPARAM;
+    if (t < 0) {
+        if (t < -EPSILON) {
+            return EDUBPARAM;
+        }
+        t = 0;
+    }
+    const double path_length = dubins_path_length(path);
+    if (t > path_length) {
+        if (t > path_length + EPSILON && t > path_length * (1.0 + EPSILON)) {
+            return EDUBPARAM;
+        }
+        t = path_length;
     }
 
     /* initial configuration */
